@@ -1,16 +1,21 @@
-## Hi there 👋
+# Hi, I'm Hina 👋
 
-<!--
-**developerhinakhan/developerhinakhan** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+Python Developer | Learning Software Development
 
-Here are some ideas to get you started:
+## Skills
+- Python
+- Object Oriented Programming
+- Git & GitHub
+- Problem Solving
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+## Projects
+- Python Student Management System  
+  https://github.com/developerhinakhan/python-student-management-system
+
+## Currently Learning
+- Python projects
+- Data Structures
+- Software Development
+
+## GitHub Stats
+![GitHub stats](https://github-readme-stats.vercel.app/api?username=developerhinakhan&show_icons=true)
