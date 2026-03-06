@@ -22,4 +22,7 @@ Python Developer | Learning Software Development
 - Software Development
 
 ## GitHub Stats
-![GitHub stats](https://github-readme-stats.vercel.app/api?username=developerhinakhan&show_icons=true)
+
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=developerhinakhan&show_icons=true&theme=tokyonight)
+
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=developerhinakhan&layout=compact&theme=tokyonight)
