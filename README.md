@@ -8,13 +8,6 @@ Python Developer | Learning Software Development
 - Git & GitHub
 - Problem Solving
 
-## Projects
-
-- Python Student Management System  
-  https://github.com/developerhinakhan/python-student-management-system
-
-- OOP Bank Account System  
-  https://github.com/developerhinakhan/oop-bank-account-system
 
 ## Currently Learning
 - Python projects
