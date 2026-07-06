@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hina Khan — Python Backend Developer</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0A0F1E;
+      --bg-card: #111827;
+      --bg-hover: #1A2235;
+      --accent: #00D4FF;
+      --accent-dim: #00D4FF22;
+      --text: #E8EDF5;
+      --muted: #93A0B3;
+      --border: #1E2A3A;
+      --green: #00FF88;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; }
+
+    .hero-grid {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 60px 60px;
+      opacity: 0.22;
+    }
+
+    .hero-glow {
+      position: fixed;
+      top: -220px;
+      right: -220px;
+      z-index: -1;
+      width: 650px;
+      height: 650px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0,212,255,0.06) 0%, transparent 72%);
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(10, 15, 30, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav-logo span { color: var(--muted); }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.2s;
+      padding: 0.25rem 0;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.95fr);
+      align-items: center;
+      gap: 3rem;
+      padding: 7rem 2rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .hero-content { max-width: 620px; }
+
+    .hero-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .hero-name {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      font-weight: 700;
+      line-height: 1.05;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .terminal-line {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.95rem, 2vw, 1.25rem);
+      color: var(--green);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      flex-wrap: wrap;
+    }
+
+    .terminal-prompt { color: var(--muted); margin-right: 0.5rem; }
+    .terminal-text { border-right: 2px solid var(--green); padding-right: 2px; white-space: nowrap; overflow: hidden; max-width: 100%; }
+    .cursor-blink { animation: blink 1s step-end infinite; }
+
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+    .hero-bio {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    .hero-cta { display: flex; gap: 0.85rem; flex-wrap: wrap; }
+
+    .btn {
+      padding: 0.8rem 1.35rem;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 44px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #0A0F1E;
+      border: 2px solid var(--accent);
+    }
+
+    .btn-primary:hover { background: transparent; color: var(--accent); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--green);
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      margin-top: 1.4rem;
+      flex-wrap: wrap;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s ease-in-out infinite;
+      flex: 0 0 auto;
+    }
+
+    @keyframes pulse {
+      0%,100%{opacity:1;transform:scale(1);}
+      50%{opacity:0.4;transform:scale(0.8);}
+    }
+
+    .hero-right {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 2.5rem;
+      padding-left: 1rem;
+    }
+
+    .id-card-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transform-origin: top center;
+      animation: sway 5.8s ease-in-out infinite;
+      will-change: transform;
+      margin-top: 0.5rem;
+    }
+
+    .clip-assembly {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: -2px;
+      z-index: 3;
+    }
+
+    .clip-ball {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f8f8f8 0%, #b8b8b8 45%, #f8f8f8 100%);
+      border: 1px solid #d0d0d0;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.28);
+    }
+
+    .clip-stem {
+      width: 4px;
+      height: 26px;
+      background: linear-gradient(to bottom, #e0e0e0, #9a9a9a);
+    }
+
+    .clip-ring {
+      width: 28px;
+      height: 16px;
+      border: 4px solid #c4c4c4;
+      border-radius: 0 0 12px 12px;
+      border-top: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+    }
+
+    .clip-bar {
+      width: 48px;
+      height: 5px;
+      background: linear-gradient(to right, #aaaaaa, #e9e9e9, #aaaaaa);
+      border-radius: 3px;
+      margin-top: 1px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.18);
+    }
+
+    .id-card {
+      width: min(410px, 92vw);
+      min-height: 500px;
+      border-radius: 26px;
+      border: 1px solid rgba(0,212,255,0.25);
+      overflow: hidden;
+      transform: rotate(-1deg);
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(17,24,39,0.98), rgba(10,15,30,0.98));
+      box-shadow:
+        0 30px 70px rgba(0, 0, 0, 0.34),
+        0 18px 36px rgba(0, 0, 0, 0.22),
+        0 0 0 1px rgba(255,255,255,0.03) inset;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .id-card:hover {
+      transform: rotate(0deg) translateY(-3px);
+      box-shadow:
+        0 36px 80px rgba(0, 0, 0, 0.42),
+        0 20px 40px rgba(0, 0, 0, 0.26),
+        0 0 0 1px rgba(255,255,255,0.04) inset;
+    }
+
+    @keyframes sway {
+      0%, 100% { transform: rotate(-1.1deg) translateY(0); }
+      50% { transform: rotate(1.1deg) translateY(3px); }
+    }
+
+    .card-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 20% 80%, rgba(0,212,255,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(0,100,180,0.12) 0%, transparent 50%);
+      z-index: 0;
+    }
+
+    .card-veins {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      opacity: 0.15;
+      background-image:
+        repeating-linear-gradient(125deg, transparent 0px, transparent 40px, rgba(0,212,255,0.4) 40px, rgba(0,212,255,0.4) 41px, transparent 41px, transparent 80px),
+        repeating-linear-gradient(55deg, transparent 0px, transparent 60px, rgba(255,255,255,0.15) 60px, rgba(255,255,255,0.15) 61px, transparent 61px, transparent 120px);
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+      padding: 42px 30px 34px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+    }
+
+    .card-hole {
+      width: 32px;
+      height: 12px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 6px;
+      border: 1px solid rgba(0,212,255,0.18);
+    }
+
+    .id-photo {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 4px solid rgba(0,212,255,0.55);
+      object-fit: cover;
+      box-shadow: 0 0 0 6px rgba(0,212,255,0.08);
+    }
+
+    .id-name {
+      font-size: 13px;
+      color: rgba(232,237,245,0.74);
+      font-family: 'Space Grotesk', sans-serif;
+      letter-spacing: 0.12em;
+    }
+
+    .id-title {
+      font-size: 19px;
+      font-weight: 700;
+      color: #E8EDF5;
+      font-family: 'Space Grotesk', sans-serif;
+      line-height: 1.2;
+    }
+
+    .id-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 8px;
+      color: #00FF88;
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      border-radius: 999px;
+      padding: 5px 12px;
+      letter-spacing: 0.12em;
+    }
+
+    .status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #00FF88;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    section { padding: 5rem 2rem; }
+
+    .section-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 3rem;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    #skills, #project, #about, #contact { border-top: 1px solid var(--border); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      background: var(--bg-hover);
+      transform: translateY(-2px);
+    }
+
+    .skill-card-icon { font-size: 1.5rem; margin-bottom: 0.75rem; }
+
+    .skill-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-top: 0.75rem;
+    }
+
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px solid rgba(0,212,255,0.15);
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+    }
+
+    .project-info { padding: 2.5rem; }
+
+    .project-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: var(--green);
+      background: rgba(0,255,136,0.08);
+      border: 1px solid rgba(0,255,136,0.2);
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .project-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .project-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-features {
+      list-style: none;
+      margin-bottom: 1.75rem;
+    }
+
+    .project-features li {
+      color: var(--muted);
+      font-size: 0.875rem;
+      padding: 0.35rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .project-features li::before {
+      content: '→';
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      flex: 0 0 auto;
+    }
+
+    .project-links { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+    .project-visual {
+      background: #0D1525;
+      border-left: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+    }
+
+    .term-bar { display: flex; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .term-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .term-dot.red { background: #FF5F57; }
+    .term-dot.yellow { background: #FFBD2E; }
+    .term-dot.green { background: #28C840; }
+
+    .term-line { padding: 0.2rem 0; line-height: 1.6; word-break: break-word; }
+    .term-cmd { color: var(--accent); }
+    .term-out { color: #8896A8; }
+    .term-ok { color: var(--green); }
+    .term-info { color: #C792EA; }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .mini-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.6rem;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .mini-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .mini-card-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .mini-card-desc {
+      color: var(--muted);
+      font-size: 0.85rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .mini-card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .mini-card-links {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .mini-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      min-height: 40px;
+    }
+
+    .mini-link:hover { border-color: var(--accent); color: var(--accent); }
+    .mini-link.yt:hover { border-color: #FF0000; color: #FF4444; }
+
+    #about { text-align: center; }
+
+    .about-text {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .about-text .section-label,
+    .about-text .section-title,
+    .about-text .section-sub,
+    .about-text .about-body {
+      text-align: center;
+    }
+
+    .about-body {
+      color: var(--muted);
+      line-height: 1.85;
+      margin-bottom: 1rem;
+      max-width: 720px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #contact {
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    #contact .section-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-links {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      padding: 0.8rem 1.2rem;
+      border-radius: 8px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+      min-height: 44px;
+    }
+
+    .contact-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .id-card-wrap { animation: none; }
+      .id-card { transition: none; }
+      .fade-up { transition: none; }
+      * { scroll-behavior: auto; }
+    }
+
+    @media (max-width: 900px) {
+      #hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-content { margin: 0 auto; }
+      .hero-right { margin-top: 0.5rem; padding-left: 0; }
+
+      .project-card { grid-template-columns: 1fr; }
+      .project-visual {
+        border-left: none;
+        border-top: 1px solid var(--border);
+      }
+    }
+
+    @media (max-width: 768px) {
+      nav { padding: 0.9rem 1rem; }
+      section { padding: 4rem 1rem; }
+
+      #hero {
+        min-height: auto;
+        padding: 6rem 1rem 3rem;
+      }
+
+      .hero-name { font-size: clamp(2.2rem, 10vw, 3.6rem); }
+      .hero-bio { font-size: 0.96rem; }
+
+      .hero-cta { flex-direction: column; }
+      .btn { width: 100%; }
+
+      .skills-grid,
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project-info { padding: 1.4rem; }
+      .project-visual { padding: 1.15rem; }
+
+      .contact-links {
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .contact-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero-right {
+        padding-top: 1.5rem;
+      }
+
+      .id-card {
+        width: min(360px, 92vw);
+        min-height: 450px;
+      }
+
+      .id-photo {
+        width: 155px;
+        height: 155px;
+      }
+
+      .clip-ball {
+        width: 23px;
+        height: 23px;
+      }
+
+      .clip-ring {
+        width: 25px;
+        height: 14px;
+      }
+
+      .clip-bar {
+        width: 42px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      nav { justify-content: center; }
+
+      .section-title { font-size: 1.6rem; }
+      .section-sub { font-size: 0.93rem; }
+
+      .mini-card,
+      .skill-card {
+        padding: 1.2rem;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        justify-content: center;
+      }
+
+      .terminal-line {
+        font-size: 0.92rem;
+        justify-content: center;
+      }
+
+      .hero-right {
+        padding-top: 1rem;
+      }
+
+      .id-card {
+        width: min(320px, 92vw);
+        min-height: 410px;
+        transform: rotate(-0.5deg);
+      }
+
+      .id-photo {
+        width: 140px;
+        height: 140px;
+      }
+
+      .about-body { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <nav>
+    <a href="#hero" class="nav-logo">hina<span>.dev</span></a>
+    <ul class="nav-links">
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#project">Project</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section id="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">Python Backend Developer</div>
+      <h1 class="hero-name">Hi, I'm Hina Noor.<br>I build APIs<br>that actually work.</h1>
+
+      <div class="terminal-line">
+        <span class="terminal-prompt">$</span>
+        <span class="terminal-text" id="typed-text"></span><span class="cursor-blink" style="color:var(--green)">▋</span>
+      </div>
+
+      <p class="hero-bio">
+        Self-taught Python backend developer specializing in FastAPI, PostgreSQL, Docker, and cloud deployment.
+        I build production-ready REST APIs with clean architecture, test coverage, and AI integrations.
+      </p>
+
+      <div class="hero-cta">
+        <a href="https://ai-pos-system-production.up.railway.app/docs" target="_blank" class="btn btn-primary">Try It Live →</a>
+        <a href="#project" class="btn btn-ghost">See My Project</a>
+        <a href="#contact" class="btn btn-ghost">Hire Me</a>
+      </div>
+
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        Live project deployed on Railway
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="id-card-wrap">
+        <div class="clip-assembly">
+          <div class="clip-ball"></div>
+          <div class="clip-stem"></div>
+          <div class="clip-ring"></div>
+          <div class="clip-bar"></div>
+        </div>
+
+        <div class="id-card">
+          <div class="card-bg"></div>
+          <div class="card-veins"></div>
+          <div class="card-content">
+            <div class="card-hole"></div>
+            <img class="id-photo" src="https://i.ibb.co/mPTP6pG/Untitled-design-1.png" alt="Hina Noor" />
+            <div class="id-name">Hina Noor</div>
+            <div class="id-title">Python Backend Developer</div>
+            <div class="id-status"><span class="status-dot"></span>OPEN TO WORK</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="section-inner">
+      <div class="section-label fade-up">What I Work With</div>
+      <h2 class="section-title fade-up">Technical Stack</h2>
+      <p class="section-sub fade-up">Every tool here I've used in a real, deployed project — not just tutorials.</p>
+
+      <div class="skills-grid">
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">⚡</div>
+          <div class="skill-card-title">Backend Framework</div>
+          <p style="color:var(--muted);font-size:0.875rem;">Building fast, async REST APIs with clean routing and dependency injection.</p>
+          <div class="skill-tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">Python</span>
+            <span class="tag">REST API</span>
+            <span class="tag">OAuth2</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">🗄️</div>
+          <div class="skill-card-title">Database & ORM</div>
+          <p style="color:var(--muted);font-size:0.875rem;">Designing relational schemas, writing migrations, and managing data with async ORM.</p>
+          <div class="skill-tags">
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">SQLAlchemy</span>
+            <span class="tag">Alembic</span>
+            <span class="tag">Supabase</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">🔐</div>
+          <div class="skill-card-title">Auth & Security</div>
+          <p style="color:var(--muted);font-size:0.875rem;">JWT-based authentication flows with bcrypt password hashing and protected routes.</p>
+          <div class="skill-tags">
+            <span class="tag">JWT</span>
+            <span class="tag">Bcrypt</span>
+            <span class="tag">OAuth2</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">🚀</div>
+          <div class="skill-card-title">DevOps & Deployment</div>
+          <p style="color:var(--muted);font-size:0.875rem;">Containerising apps with Docker and deploying to cloud platforms with environment configs.</p>
+          <div class="skill-tags">
+            <span class="tag">Docker</span>
+            <span class="tag">Railway</span>
+            <span class="tag">GitHub</span>
+            <span class="tag">Env Vars</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">⚡</div>
+          <div class="skill-card-title">Caching & Performance</div>
+          <p style="color:var(--muted);font-size:0.875rem;">Reducing database load with Redis caching strategy and TTL-based cache invalidation.</p>
+          <div class="skill-tags">
+            <span class="tag">Redis</span>
+            <span class="tag">Upstash</span>
+            <span class="tag">Caching</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">🧪</div>
+          <div class="skill-card-title">Testing</div>
+          <p style="color:var(--muted);font-size:0.875rem;">Writing isolated unit and integration tests with fixtures, conftest, and dependency overrides.</p>
+          <div class="skill-tags">
+            <span class="tag">pytest</span>
+            <span class="tag">SQLite</span>
+            <span class="tag">Fixtures</span>
+            <span class="tag">28 tests</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">🤖</div>
+          <div class="skill-card-title">AI Integration</div>
+          <p style="color:var(--muted);font-size:0.875rem;">Integrating LLM APIs to deliver business insights via structured prompts and async calls.</p>
+          <div class="skill-tags">
+            <span class="tag">Groq AI</span>
+            <span class="tag">LLaMA 3</span>
+            <span class="tag">Prompting</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card-icon">🏗️</div>
+          <div class="skill-card-title">Architecture</div>
+          <p style="color:var(--muted);font-size:0.875rem;">Building maintainable codebases using layered patterns — Router → Service → Repository → DB.</p>
+          <div class="skill-tags">
+            <span class="tag">Layered Arch</span>
+            <span class="tag">SOLID</span>
+            <span class="tag">Clean Code</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="project">
+    <div class="section-inner">
+      <div class="section-label fade-up">Portfolio</div>
+      <h2 class="section-title fade-up">Featured Projects</h2>
+      <p class="section-sub fade-up">Built from scratch. Live in production. Real-world architecture.</p>
+
+      <div class="project-card fade-up">
+        <div class="project-info">
+          <div class="project-badge"><span class="live-dot" style="width:5px;height:5px;"></span>FLAGSHIP PROJECT · LIVE ON RAILWAY</div>
+          <h3 class="project-title">AI-Powered POS System</h3>
+          <p class="project-desc">
+            A complete Point of Sale backend with AI-driven business insights. Built with FastAPI and PostgreSQL,
+            featuring real-time inventory tracking, sales analytics, and AI endpoints for business recommendations.
+          </p>
+          <ul class="project-features">
+            <li>JWT auth with OAuth2 + bcrypt password hashing</li>
+            <li>6 modules: auth, products, categories, customers, sales, AI</li>
+            <li>Redis caching to minimize database load</li>
+            <li>AI endpoints powered by LLaMA 3.3-70B via Groq</li>
+            <li>28 pytest tests — all passing</li>
+            <li>Dockerized and deployed on Railway with Supabase + Upstash</li>
+          </ul>
+          <div class="project-links">
+            <a href="https://ai-pos-system-production.up.railway.app/docs" target="_blank" class="btn btn-primary" style="font-size:0.82rem;padding:0.6rem 1.25rem;">Live Demo →</a>
+            <a href="https://github.com/developerhinakhan/ai-pos-system" target="_blank" class="btn btn-ghost" style="font-size:0.82rem;padding:0.6rem 1.25rem;">GitHub →</a>
+          </div>
+        </div>
+
+        <div class="project-visual">
+          <div class="term-bar">
+            <span class="term-dot red"></span>
+            <span class="term-dot yellow"></span>
+            <span class="term-dot green"></span>
+          </div>
+          <div class="term-line"><span class="term-cmd">$ pytest tests/ -v</span></div>
+          <div class="term-line"><span class="term-out">collecting ... 28 items</span></div>
+          <div class="term-line"><span class="term-ok">✓ test_register_user PASSED</span></div>
+          <div class="term-line"><span class="term-ok">✓ test_login_user PASSED</span></div>
+          <div class="term-line"><span class="term-ok">✓ test_create_product PASSED</span></div>
+          <div class="term-line"><span class="term-ok">✓ test_get_products PASSED</span></div>
+          <div class="term-line"><span class="term-ok">✓ test_create_sale PASSED</span></div>
+          <div class="term-line"><span class="term-ok">✓ test_ai_low_stock PASSED</span></div>
+          <div class="term-line" style="color:var(--muted)">... 22 more tests ...</div>
+          <div class="term-line" style="margin-top:0.5rem;"><span class="term-ok">28 passed</span> <span class="term-out">in 1.84s</span></div>
+        </div>
+      </div>
+
+      <div class="projects-grid">
+        <div class="mini-card fade-up">
+          <div class="mini-card-title">Inventory Management System</div>
+          <p class="mini-card-desc">
+            REST API for inventory, suppliers, and customers with JWT auth, role-based access,
+            stock tracking, low-stock alerts, and profit/sales reports.
+          </p>
+          <div class="mini-card-tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">PostgreSQL</span>
+            <span class="tag">SQLAlchemy</span>
+            <span class="tag">JWT</span>
+          </div>
+          <div class="mini-card-links">
+            <a href="https://youtu.be/e0MbG5kkMeU?si=mpiA9qUfnHsp4-ff" target="_blank" class="mini-link yt">▶ Demo Video</a>
+            <a href="https://github.com/developerhinakhan/inventory-management-api" target="_blank" class="mini-link">🐙 GitHub</a>
+          </div>
+        </div>
+
+        <div class="mini-card fade-up">
+          <div class="mini-card-title">Blog API</div>
+          <p class="mini-card-desc">
+            REST API with secure JWT authentication, password hashing, protected routes,
+            and full CRUD for blog posts with one-to-many relationships.
+          </p>
+          <div class="mini-card-tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">SQLAlchemy</span>
+            <span class="tag">JWT</span>
+            <span class="tag">bcrypt</span>
+          </div>
+          <div class="mini-card-links">
+            <a href="https://github.com/developerhinakhan/fastapi-blog-authentication" target="_blank" class="mini-link">🐙 GitHub</a>
+          </div>
+        </div>
+
+        <div class="mini-card fade-up">
+          <div class="mini-card-title">Todo App</div>
+          <p class="mini-card-desc">
+            CRUD-based task management API — currently being rebuilt into a production-grade backend with PostgreSQL, JWT auth, and Docker deployment.
+          </p>
+          <div class="mini-card-tags">
+            <span class="tag">FastAPI</span>
+            <span class="tag">Python</span>
+            <span class="tag">CRUD</span>
+          </div>
+          <div class="mini-card-links">
+            <a href="https://github.com/developerhinakhan/todo-app-crud" target="_blank" class="mini-link">🐙 GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="section-inner">
+      <div class="about-text">
+        <div class="section-label fade-up">About Me</div>
+        <h2 class="section-title fade-up">Self-taught.<br>Pakistan-based.<br>Production-ready.</h2>
+        <p class="about-body fade-up">I'm a self-taught Python backend developer from Pakistan, building clean APIs and real products.</p>
+        <p class="about-body fade-up">I focus on FastAPI, PostgreSQL, Docker, and practical AI integrations for backend systems.</p>
+        <p class="about-body fade-up">I am open to junior backend roles and remote opportunities.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="section-inner">
+      <div class="section-label fade-up">Let's Work Together</div>
+      <h2 class="section-title fade-up">Open to Opportunities</h2>
+      <p class="section-sub fade-up">Looking for junior backend roles in Lahore and open to remote opportunities worldwide.</p>
+
+      <div class="contact-links fade-up">
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=developerhinakhan@gmail.com" target="_blank" class="contact-link">📧 Email Me</a>
+        <a href="https://github.com/developerhinakhan" target="_blank" class="contact-link">🐙 GitHub</a>
+        <a href="https://www.linkedin.com/in/hina-noor-8068513b3/" target="_blank" class="contact-link">💼 LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built by Hina Dev · <span id="year"></span> · hina.dev</p>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const phrases = ['fastapi run main.py','pytest tests/ → 28 passed ✓','docker compose up --build','git push origin main'];
+      let pIdx = 0, cIdx = 0, deleting = false;
+      const el = document.getElementById('typed-text');
+
+      function type() {
+        if (!el) return;
+        const phrase = phrases[pIdx];
+        if (!deleting) {
+          el.textContent = phrase.slice(0, ++cIdx);
+          if (cIdx === phrase.length) {
+            deleting = true;
+            setTimeout(type, 1600);
+            return;
+          }
+        } else {
+          el.textContent = phrase.slice(0, --cIdx);
+          if (cIdx === 0) {
+            deleting = false;
+            pIdx = (pIdx + 1) % phrases.length;
+          }
+        }
+        setTimeout(type, deleting ? 40 : 80);
+      }
+
+      type();
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+          });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-up').forEach(item => observer.observe(item));
+      } else {
+        document.querySelectorAll('.fade-up').forEach(item => item.classList.add('visible'));
+      }
+    });
+  </script>
+</body>
+</html>
